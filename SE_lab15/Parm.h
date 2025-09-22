@@ -1,20 +1,22 @@
 #pragma once
-#include"stdafx.h"
-#define PARM_IN L"-in:"          // ключ для файла исходного кода
-#define PARM_OUT L"-out:"        // ключ для файла объектного кода
-#define PARM_LOG L"-log:"        // ключ для файла журнала
-#define PARM_MAX_SIZE 300        // максимальная длина строки параметра
-#define PARM_OUT_DEFAULT_EXT L".out"  // расширение файла объектного кода по умолчанию
-#define PARM_LOG_DEFAULT_EXT L".log"  // расширение файла протокола по умолчанию
+#include "stdafx.h"
 
-namespace Parm      // обработка входных параметров
+#define PARM_IN L"-in:"               // РєР»СЋС‡ РґР»СЏ С„Р°Р№Р»Р° РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°
+#define PARM_OUT L"-out:"             // РєР»СЋС‡ РґР»СЏ С„Р°Р№Р»Р° РѕР±СЉРµРєС‚РЅРѕРіРѕ РєРѕРґР°
+#define PARM_LOG L"-log:"             // РєР»СЋС‡ РґР»СЏ С„Р°Р№Р»Р° Р¶СѓСЂРЅР°Р»Р°
+#define PARM_MAX_SIZE 300             // РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° СЃС‚СЂРѕРєРё РїР°СЂР°РјРµС‚СЂР°
+#define PARM_OUT_DEFAULT_EXT L".out"  // СЂР°СЃС€РёСЂРµРЅРёРµ С„Р°Р№Р»Р° РѕР±СЉРµРєС‚РЅРѕРіРѕ РєРѕРґР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+#define PARM_LOG_DEFAULT_EXT L".log"  // СЂР°СЃС€РёСЂРµРЅРёРµ С„Р°Р№Р»Р° РїСЂРѕС‚РѕРєРѕР»Р° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+
+namespace Parm      // РѕР±СЂР°Р±РѕС‚РєР° РІС…РѕРґРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ
 {
-    struct PARM      // входные параметры
+    struct PARM    // РІС…РѕРґРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹
     {
-        wchar_t in[PARM_MAX_SIZE];    // -in  имя файла исходного кода
-        wchar_t out[PARM_MAX_SIZE];    // -out имя файла объектного кода
-        wchar_t log[PARM_MAX_SIZE];    // -log имя файла протокола
+        wchar_t in[PARM_MAX_SIZE];   // -in  РёРјСЏ С„Р°Р№Р»Р° РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°
+        wchar_t out[PARM_MAX_SIZE];  // -out РёРјСЏ С„Р°Р№Р»Р° РѕР±СЉРµРєС‚РЅРѕРіРѕ РєРѕРґР°
+        wchar_t log[PARM_MAX_SIZE];  // -log РёРјСЏ С„Р°Р№Р»Р° РїСЂРѕС‚РѕРєРѕР»Р°
     };
+
     // int _tmain(int argc, _TCHAR* argv[])
-    PARM getparm(int argc, _TCHAR* argv[]);    // сформировать struct PARM на основе параметров функции main
+    PARM getparm(int argc, _TCHAR* argv[]);  // СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ struct PARM РЅР° РѕСЃРЅРѕРІРµ РїР°СЂР°РјРµС‚СЂРѕРІ С„СѓРЅРєС†РёРё main
 };
