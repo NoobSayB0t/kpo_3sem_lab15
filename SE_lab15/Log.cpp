@@ -48,8 +48,8 @@ namespace Log
         time(&rawtime);
         localtime_s(&timeinfo, &rawtime);
 
-        *log.stream << "-----Ïðîòîêîë----- " << endl;
-        strftime(buffer, 100, "Âûïîëíåíî: %d.%m.%Y %A %H:%M:%S", &timeinfo);
+        *log.stream << "-----ÐŸÑ€Ð¾Ñ‚Ð¾ÐºÐ¾Ð»----- " << endl;
+        strftime(buffer, 100, "Ð’Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¾: %d.%m.%Y %A %H:%M:%S", &timeinfo);
         *log.stream << buffer << endl;
     }
 
@@ -63,7 +63,7 @@ namespace Log
         wcstombs(outInfo, parm.out, sizeof(outInfo));
         wcstombs(logInfo, parm.log, sizeof(logInfo));
 
-        *log.stream << "-----Ïàðàìåòðû----- " << endl;
+        *log.stream << "-----ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹----- " << endl;
         *log.stream << "-in:\t" << inInfo << endl;
         *log.stream << "-log:\t" << logInfo << endl;
         *log.stream << "-out:\t" << outInfo << endl;
@@ -71,22 +71,22 @@ namespace Log
 
     void WriteIn(LOG log, In::IN in)
     {
-        *log.stream << "-----Èñõîäíûå äàííûå----- " << endl;
-        *log.stream << "Êîëè÷åñòâî ñèìâîëîâ: " << in.size << endl;
-        *log.stream << "Ïðîèãíîðèðîâàíî: " << in.ignore << endl;
-        *log.stream << "Êîëè÷åñòâî ñòðîê: " << in.lines << endl;
+        *log.stream << "-----Ð˜ÑÑ…Ð¾Ð´Ð½Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ----- " << endl;
+        *log.stream << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ¸Ð¼Ð²Ð¾Ð»Ð¾Ð²: " << in.size << endl;
+        *log.stream << "ÐŸÑ€Ð¾Ð¸Ð³Ð½Ð¾Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¾: " << in.ignore << endl;
+        *log.stream << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº: " << in.lines << endl;
     }
 
     void WriteError(LOG log, Error::ERROR error)
     {
         if (error.id == 100 || error.id == 113)
         {
-            std::cout << "Îøèáêà " << error.id << ": " << error.message << "\n";
+            std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ° " << error.id << ": " << error.message << "\n";
         }
         else
         {
-            (*log.stream) << "Îøèáêà " << error.id << ": " << error.message << "\n"
-                << "Ñòðîêà " << error.inext.line << ", ïîçèöèÿ: " << error.inext.col;
+            (*log.stream) << "ÐžÑˆÐ¸Ð±ÐºÐ° " << error.id << ": " << error.message << "\n"
+                << "Ð¡Ñ‚Ñ€Ð¾ÐºÐ° " << error.inext.line << ", Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ: " << error.inext.col;
         }
         log.stream->close();
     }
