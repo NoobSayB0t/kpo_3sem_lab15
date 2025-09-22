@@ -10,27 +10,27 @@ int _tmain(int argc, _TCHAR* argv[]) {
 
     setlocale(LC_ALL, "rus");
 
-    std::cout << "---- òåñò Parm::getparm ---" << std::endl << std::endl;
+    std::cout << "---- Ñ‚ÐµÑÑ‚ Parm::getparm ---" << std::endl << std::endl;
     try {
         Parm::PARM parm = Parm::getparm(argc, argv);
 
         wcout << "-in: " << parm.in << ", -out: " << parm.out << ", -log: " << parm.log << endl << endl;
     }
     catch (Error::ERROR e) {
-        cout << "Îøèáêà " << e.id << ":" << e.message << endl << endl;
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ° " << e.id << ":" << e.message << endl << endl;
     };
 
-    std::cout << "---- òåñò In::getin ---" << std::endl << std::endl;
+    std::cout << "---- Ñ‚ÐµÑÑ‚ In::getin ---" << std::endl << std::endl;
     try {
         Parm::PARM parm = Parm::getparm(argc, argv);
         In::IN in = In::getin(parm.in);
         cout << in.text << endl;
-        cout << "Âñåãî ñèìâîëîâ: " << in.size << endl;
-        cout << "Âñåãî ñòðîê: " << in.lines << endl;
-        cout << "Ïðîïóùåíî: " << in.ignore << endl;
+        cout << "Ð’ÑÐµÐ³Ð¾ ÑÐ¸Ð¼Ð²Ð¾Ð»Ð¾Ð²: " << in.size << endl;
+        cout << "Ð’ÑÐµÐ³Ð¾ ÑÑ‚Ñ€Ð¾Ðº: " << in.lines << endl;
+        cout << "ÐŸÑ€Ð¾Ð¿ÑƒÑ‰ÐµÐ½Ð¾: " << in.ignore << endl;
     }
     catch (Error::ERROR e) {
-        cout << "Îøèáêà " << e.id << ":" << e.message << endl;
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ° " << e.id << ":" << e.message << endl;
     }
 
     Log::LOG log;
@@ -41,10 +41,10 @@ int _tmain(int argc, _TCHAR* argv[]) {
         Parm::PARM parm = Parm::getparm(argc, argv);
 
         log = Log::getlog(parm.log);
-        Log::WriteLine(log, (char*)"Òåñò:", (char*)" áåç îøèáîê\n", "");
-        Log::WriteLine(log, (char*)"Òåñò:", (char*)" áåç îøèáîê\n", "");
+        Log::WriteLine(log, (char*)"Ð¢ÐµÑÑ‚:", (char*)" Ð±ÐµÐ· Ð¾ÑˆÐ¸Ð±Ð¾Ðº\n", "");
+        Log::WriteLine(log, (char*)"Ð¢ÐµÑÑ‚:", (char*)" Ð±ÐµÐ· Ð¾ÑˆÐ¸Ð±Ð¾Ðº\n", "");
 
-        std::cout << "---- Ñîçäàíèå âûõîäíîãî ôàéëà ---" << std::endl << std::endl;
+        std::cout << "---- Ð¡Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð²Ñ‹Ñ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð° ---" << std::endl << std::endl;
         out = Out::getout(parm.out);
 
         Log::WriteParm(log, parm);
@@ -64,7 +64,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
                 hasErrors = true;
                 Error::ERROR symbolError = {
                     201,
-                    "Íåäîïóñòèìûé ñèìâîë",
+                    "ÐÐµÐ´Ð¾Ð¿ÑƒÑÑ‚Ð¸Ð¼Ñ‹Ð¹ ÑÐ¸Ð¼Ð²Ð¾Ð»",
                     { currentLine, i + 1 }
                 };
 
@@ -81,14 +81,14 @@ int _tmain(int argc, _TCHAR* argv[]) {
             Out::WriteToFile(out, in);
         }
         else {
-            std::cout << "Îáíàðóæåíû îøèáêè, äàííûå íå çàïèñàíû.\n";
-            Log::WriteLine(log, (char*)"Îáíàðóæåíû îøèáêè, äàííûå íå çàïèñàíû", "", "");
+            std::cout << "ÐžÐ±Ð½Ð°Ñ€ÑƒÐ¶ÐµÐ½Ñ‹ Ð¾ÑˆÐ¸Ð±ÐºÐ¸, Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð½Ðµ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ñ‹.\n";
+            Log::WriteLine(log, (char*)"ÐžÐ±Ð½Ð°Ñ€ÑƒÐ¶ÐµÐ½Ñ‹ Ð¾ÑˆÐ¸Ð±ÐºÐ¸, Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð½Ðµ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ñ‹", "", "");
         }
 
         Out::CloseFile(out);
-        Log::WriteLine(log, (char*)"Äàííûå óñïåøíî çàïèñàíû â âûõîäíîé ôàéë", "", "");
+        Log::WriteLine(log, (char*)"Ð”Ð°Ð½Ð½Ñ‹Ðµ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ñ‹ Ð² Ð²Ñ‹Ñ…Ð¾Ð´Ð½Ð¾Ð¹ Ñ„Ð°Ð¹Ð»", "", "");
         Log::Close(log);
-        std::cout << "Äàííûå çàïèñàíû â ôàéë: " << parm.out << std::endl;
+        std::cout << "Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ñ‹ Ð² Ñ„Ð°Ð¹Ð»: " << parm.out << std::endl;
     }
     catch (Error::ERROR e)
     {
