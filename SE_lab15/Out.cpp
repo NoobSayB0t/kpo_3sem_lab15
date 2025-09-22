@@ -1,33 +1,47 @@
 #include "stdafx.h"
 #include "Out.h"
+#include <locale>
+#include <codecvt>
+#include <iostream>
+#include <fstream>
 
 namespace Out {
 
     OUT getout(wchar_t outfile[]) {
         OUT out;
-        out.stream = new std::ofstream;
+        out.stream = new std::wofstream;
         out.stream->open(outfile);
-        if (!out.stream->is_open()) { throw ERROR_THROW(113); }
+        if (!out.stream->is_open()) {
+            throw ERROR_THROW(113);
+        }
+        // ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ° ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÐ¸ UTF-8 Ð´Ð»Ñ wide-ÑÑ‚Ñ€Ð¸Ð¼Ð°
+        out.stream->imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
         wcscpy_s(out.outfile, outfile);
         return out;
     }
+
     void WriteToFile(OUT out, In::IN in) {
         *out.stream << in.text;
     }
-    void Out::WriteToError(OUT out, Error::ERROR error) {
+
+    void WriteToError(OUT out, Error::ERROR error) {
         if (out.stream && out.stream->is_open()) {
-            *out.stream << "Îøèáêà " << error.id << ": " << error.message << std::endl;
+            *out.stream << L"ÐžÑˆÐ¸Ð±ÐºÐ° " << error.id << L": " << error.message << std::endl;
             if (error.inext.line != -1) {
-                *out.stream << "Ñòðîêà: " << error.inext.line << " Ïîçèöèÿ: " << error.inext.col << std::endl << std::endl;
+                *out.stream << L"Ð¡Ñ‚Ñ€Ð¾ÐºÐ°: " << error.inext.line
+                            << L" ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ñ: " << error.inext.col << std::endl << std::endl;
             }
         }
         else {
-            cout << "Íå óäàëîñü îòêðûòü ôàéë" << endl;
+            std::wcout.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
+            std::wcout << L"ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»" << std::endl;
         }
     }
 
     void CloseFile(OUT out) {
-        out.stream->close();
-        delete out.stream;
+        if (out.stream) {
+            out.stream->close();
+            delete out.stream;
+        }
     }
 }
