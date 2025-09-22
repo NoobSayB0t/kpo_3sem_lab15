@@ -3,29 +3,35 @@
 #define ERROR_THROW_IN(id, l, c) Error::geterrorin(id,l, c);
 #define ERROR_ENTRY(id, m) {id, m, {0,0}}
 #define ERROR_MAXSIZE_MESSAGE 200
-#define ERROR_ENTRY_NODEF(id) ERROR_ENTRY(-id," Неопределенная ошибка")
-// ERROR_ENTRY_NODEF10(id) - 10 неопределенных элементов таблицы ошибок
+
+// РћРїСЂРµРґРµР»РµРЅРёРµ "РЅРµРѕРїСЂРµРґРµР»С‘РЅРЅРѕР№ РѕС€РёР±РєРё"
+#define ERROR_ENTRY_NODEF(id) ERROR_ENTRY(-id,"РќРµРѕРїСЂРµРґРµР»С‘РЅРЅР°СЏ РѕС€РёР±РєР°")
+
+// ERROR_ENTRY_NODEF10(id) - 10 РЅРµРѕРїСЂРµРґРµР»С‘РЅРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ С‚Р°Р±Р»РёС†С‹ РѕС€РёР±РѕРє
 #define ERROR_ENTRY_NODEF10(id) ERROR_ENTRY_NODEF(id+0), ERROR_ENTRY_NODEF(id+1), ERROR_ENTRY_NODEF(id+2), ERROR_ENTRY_NODEF(id+3), \
                 ERROR_ENTRY_NODEF(id+4), ERROR_ENTRY_NODEF(id + 5), ERROR_ENTRY_NODEF(id + 6), ERROR_ENTRY_NODEF(id + 7),\
                 ERROR_ENTRY_NODEF(id + 8), ERROR_ENTRY_NODEF(id + 9)
-// ERROR_ENTRY_NODEF100(id) - 100 неопределенных элементов таблицы ошибок
+
+// ERROR_ENTRY_NODEF100(id) - 100 РЅРµРѕРїСЂРµРґРµР»С‘РЅРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ С‚Р°Р±Р»РёС†С‹ РѕС€РёР±РѕРє
 #define ERROR_ENTRY_NODEF100(id) ERROR_ENTRY_NODEF10(id+0), ERROR_ENTRY_NODEF10(id+10), ERROR_ENTRY_NODEF10(id+20), ERROR_ENTRY_NODEF10(id+30), \
                  ERROR_ENTRY_NODEF10(id+40), ERROR_ENTRY_NODEF10(id+50), ERROR_ENTRY_NODEF10(id+60), ERROR_ENTRY_NODEF10(id+70),\
                  ERROR_ENTRY_NODEF10(id+80), ERROR_ENTRY_NODEF10(id+90)
-#define ERROR_MAX_ENTRY 1000 //количество элементов в таблице ошибок
+
+#define ERROR_MAX_ENTRY 1000 // РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ С‚Р°Р±Р»РёС†Рµ РѕС€РёР±РѕРє
 
 namespace Error
 {
-    struct ERROR // тип исключения для throw ERROR_THROW | ERROR_THROW_IN и catch(ERROR)
+    struct ERROR // С‚РёРї РёСЃРєР»СЋС‡РµРЅРёСЏ РґР»СЏ throw ERROR_THROW | ERROR_THROW_IN Рё catch(ERROR)
     {
-        int id;                    // код ошибки
-        char message[ERROR_MAXSIZE_MESSAGE];    // сообщение об ошибке
-        struct IN                  // расширение для ошибок при обработке входных данных
+        int id;                                    // РєРѕРґ РѕС€РёР±РєРё
+        char message[ERROR_MAXSIZE_MESSAGE];       // СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ
+        struct IN                                  // СЂР°СЃС€РёСЂРµРЅРёРµ РґР»СЏ РѕС€РёР±РѕРє РїСЂРё РѕР±СЂР°Р±РѕС‚РєРµ РІС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…
         {
-            short line;                // номер строки (0, 1, 2, ...)
-            short col;                // номер позиции в строке (0, 1, 2, ...)
-        }inext;
+            short line;                            // РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё (0, 1, 2, ...)
+            short col;                             // РЅРѕРјРµСЂ РїРѕР·РёС†РёРё РІ СЃС‚СЂРѕРєРµ (0, 1, 2, ...)
+        } inext;
     };
-    ERROR geterror(int id);              // сформировать ERROR для ERROR_THROW
-    ERROR geterrorin(int id, int line, int col);  // сформировать ERROR для ERROR_THROW_IN
+
+    ERROR geterror(int id);                        // СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ ERROR РґР»СЏ ERROR_THROW
+    ERROR geterrorin(int id, int line, int col);   // СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ ERROR РґР»СЏ ERROR_THROW_IN
 }
